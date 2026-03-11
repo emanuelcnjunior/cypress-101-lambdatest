@@ -1,0 +1,57 @@
+version: "0.1"
+globalTimeout: 90
+testSuiteTimeout: 90
+testSuiteStep: 90
+runson: ${matrix.os}
+cypress: true
+concurrency: 1
+jobLabel:
+  - heJob
+pre:
+  - npm install cypress@13.15.2 --legacy-peer-deps
+  - npm install cypress-xpath@2.0.1 --legacy-peer-deps
+  - npm install cypress-axe@1.5.0 --legacy-peer-deps
+  - npm install axe-core@4.8.0 --legacy-peer-deps
+  - npm install cypress-real-events@1.15.0 --legacy-peer-deps
+  - npm install @4tw/cypress-drag-drop@2.3.1 --legacy-peer-deps
+  - npm install cypress-audit@1.1.0 --legacy-peer-deps
+  - npm install @cypress-audit/lighthouse@1.4.2 --legacy-peer-deps
+  - npm install lighthouse@13.0.1 --legacy-peer-deps
+  - npm install cypress@13.15.2 --legacy-peer-deps
+cacheKey: '{{ checksum "package.lock.json" }}'
+cacheDirectories:
+  - node_modules
+  - cypressCache
+env:
+  CYPRESS_CACHE_FOLDER: cypressCache
+  HYPEREXECUTE_CUSTOM_BUILD: Cypress 101 - Emanuel Nascimento
+matrix:
+  browser:
+    - Chrome-latest-1
+    - Firefox-latest-1
+  test:
+    - cypress/e2e/spec.cy.js
+  os:
+    - win
+testSuites:
+  - npx cypress run --browser=$browser --headed --config video=false --spec
+    $test --config-file cypress.config.lambdatest.js
+cypressOps:
+  DedicatedProxy: false
+  Build: Cypress 101 - Emanuel Nascimento
+  BuildTags: []
+  Tags: []
+  Network: true
+  GeoLocation: ""
+  ReporterConfigFile: base_reporter_config.json
+  ProjectAutoCreate: true
+uploadArtefacts: []
+project:
+  name: cypress_project
+  differentialUpload:
+    enabled: true
+    ttlHours: 60
+combineTasksInMatrixMode: true
+runtime:
+  language: node
+  version: 16.18.1

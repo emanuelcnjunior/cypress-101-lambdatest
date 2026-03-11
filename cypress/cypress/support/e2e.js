@@ -14,13 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
-import 'cypress-xpath';
-import 'cypress-axe';
-import 'cypress-xpath';
-import 'cypress-real-events/support';
-import '@4tw/cypress-drag-drop';
-import '@4tw/cypress-drag-drop';
-import 'cypress-audit/commands';
-import '@cypress-audit/lighthouse/commands';
+import './commands'
 
+// Alternatively you can use CommonJS syntax:
+// require('./commands')
